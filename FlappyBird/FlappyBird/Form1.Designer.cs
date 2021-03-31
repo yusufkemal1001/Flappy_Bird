@@ -35,11 +35,11 @@ namespace FlappyBird
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.flappyBird = new System.Windows.Forms.PictureBox();
             this.ground = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.pipeBottom = new System.Windows.Forms.PictureBox();
             this.pipeTop = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -85,12 +85,30 @@ namespace FlappyBird
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(305, 207);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(183, 217);
             this.panel1.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(47, 144);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(0, 13);
+            this.label4.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(82, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "label5";
             // 
             // button1
             // 
@@ -102,21 +120,12 @@ namespace FlappyBird
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(357, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(0, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Visible = false;
-            // 
             // flappyBird
             // 
             this.flappyBird.Image = global::FlappyBird.Properties.Resources.bird;
-            this.flappyBird.Location = new System.Drawing.Point(160, 260);
+            this.flappyBird.Location = new System.Drawing.Point(156, 267);
             this.flappyBird.Name = "flappyBird";
-            this.flappyBird.Size = new System.Drawing.Size(69, 54);
+            this.flappyBird.Size = new System.Drawing.Size(65, 47);
             this.flappyBird.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.flappyBird.TabIndex = 3;
             this.flappyBird.TabStop = false;
@@ -124,50 +133,44 @@ namespace FlappyBird
             // ground
             // 
             this.ground.Image = global::FlappyBird.Properties.Resources.ground;
-            this.ground.Location = new System.Drawing.Point(-115, 588);
+            this.ground.Location = new System.Drawing.Point(-3, 565);
             this.ground.Name = "ground";
-            this.ground.Size = new System.Drawing.Size(900, 60);
+            this.ground.Size = new System.Drawing.Size(854, 76);
             this.ground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ground.TabIndex = 2;
             this.ground.TabStop = false;
             this.ground.Click += new System.EventHandler(this.ground_Click);
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(82, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "label5";
-            // 
             // pipeBottom
             // 
             this.pipeBottom.Image = global::FlappyBird.Properties.Resources.pipe;
-            this.pipeBottom.Location = new System.Drawing.Point(649, 373);
+            this.pipeBottom.Location = new System.Drawing.Point(677, 361);
             this.pipeBottom.Name = "pipeBottom";
-            this.pipeBottom.Size = new System.Drawing.Size(108, 215);
+            this.pipeBottom.Size = new System.Drawing.Size(108, 413);
             this.pipeBottom.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pipeBottom.TabIndex = 1;
             this.pipeBottom.TabStop = false;
+            this.pipeBottom.Visible = false;
             // 
             // pipeTop
             // 
             this.pipeTop.Image = global::FlappyBird.Properties.Resources.pipedown;
-            this.pipeTop.Location = new System.Drawing.Point(649, -3);
+            this.pipeTop.Location = new System.Drawing.Point(677, -122);
             this.pipeTop.Name = "pipeTop";
-            this.pipeTop.Size = new System.Drawing.Size(108, 219);
+            this.pipeTop.Size = new System.Drawing.Size(108, 318);
             this.pipeTop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pipeTop.TabIndex = 4;
             this.pipeTop.TabStop = false;
+            this.pipeTop.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(783, 632);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.ground);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pipeTop);
@@ -175,10 +178,10 @@ namespace FlappyBird
             this.Controls.Add(this.flappyBird);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.ground);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gameKeyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gameKeyIsUp);
             this.panel1.ResumeLayout(false);
@@ -201,10 +204,10 @@ namespace FlappyBird
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pipeBottom;
         private System.Windows.Forms.PictureBox pipeTop;
+        private System.Windows.Forms.Label label4;
     }
 }
 
