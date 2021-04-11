@@ -16,47 +16,24 @@ namespace FlappyBird
        
 
         int pipeSpeed = 8;
-        int groundspeed;
         int gravity = 8;
         int score = 0;
         int lives = 3;
         int totalScore = 0;
         private int tableOf = 5; //preset for the table of 5
         int lastleaderboardscore;
+        int i;
 
 
         Random rndHeight = new Random();
 
 
 
-        /*string server = "localhost";
-        string database = "uitleen_systeem";
-        string dbUsername = "root";
-        string dbPassword = "";
-        string connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-
-            database + ";" + "UID=" + dbUsername + ";" + "PASSWORD=" + dbPassword + ";";
-
-        mysqlcon = new MySqlConnection(connectionString);
-
-        i = 0;
-            mysqlcon.Open();
-            MySqlCommand cmd = mysqlcon.CreateCommand();
-        cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from category";
-            cmd.ExecuteNonQuery();
-            DataTable dtbl = new DataTable();
-        MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
-        DataSet ds = new DataSet();
-        sda.Fill(ds);
-            i = Convert.ToInt32(dtbl.Rows.Count.ToString());
-            dataGridView1.DataSource = ds.Tables[0];
         
-        */
 
 
 
-    public Form1()
+        public Form1()
         {
 
             InitializeComponent();
@@ -71,12 +48,22 @@ namespace FlappyBird
 
             MySqlConnection mysqlcon = new MySqlConnection(connectionString);
 
-
+            i = 0;
             mysqlcon.Open();
             MySqlCommand cmd = mysqlcon.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select * from leaderboard order by Score";
-            cmd.ExecuteNonQuery();
+            cmd.CommandText = "Select score from leaderboard order by Score  desc limit 1 offset 9";
+            
+            DataTable dtbl = new DataTable("dtbl");
+            MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds);
+            i = Convert.ToInt32(dtbl.Rows.Count.ToString());
+
+            lastleaderboardscore = (int)ds.Tables[0].Rows[0]["score"];
+
+            
+            
             mysqlcon.Close();
             
             
@@ -111,7 +98,7 @@ namespace FlappyBird
             {
                 pipeTop.Left = 677;
                 pipeTop.Height = rndHeight.Next(200, 450);
-                pipeBottom.Top = pipeTop.Bottom + 175;
+                pipeBottom.Top = pipeTop.Bottom + 155;
                
 
             }
@@ -163,28 +150,30 @@ namespace FlappyBird
 
 
         }
+        
         private void endLives()
         {
             if (lives == 0)
             {
-                if (totalScore >  lastleaderboardscore)
+                if (totalScore >lastleaderboardscore)
                 {
-                    /* TextBox1.Show();*/
-
+                    button2.Show();
+                    textBox1.Show();
+                    textBox1.Visible = true;
+                    label5.Text = "Please enter your name.";
+                    button1.Hide();
+                    
                 }
                 label4.Show();
-                label4.Text = "your total score is" + totalScore.ToString();
+                label4.Text = "your total score is" + "" +totalScore.ToString();
                 lives = 3;
                 
                 pipeSpeed = 8;
                 label1.Text = "game Over";
-                totalScore = 0;
+                
                 label3.Visible = false;
 
-                /*if (totalScore > )
-                {
-                   
-                }*/
+                
 
 
 
@@ -212,6 +201,8 @@ namespace FlappyBird
             {
                 e.SuppressKeyPress = true;
                 gravity = -18;
+                textBox1.Text =textBox1.Text+ " ";
+                textBox1.Select(textBox1.Text.Length, 0);
             }
         }
 
@@ -220,13 +211,25 @@ namespace FlappyBird
             if (e.KeyCode == Keys.Space)
             {
                 e.SuppressKeyPress = true;
-                gravity = 8;
+                gravity = 10;
+                
             }
         }
         
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+
+
+
+
+            endLives();
+
+            textBox1.Hide();
+            textBox1.Clear();
+
             gameTimer.Start();
             label4.Hide();
             
@@ -249,6 +252,59 @@ namespace FlappyBird
         private void Form1_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label5.Show();
+            button1.Show();
+            button2.Hide();
+            string Name = textBox1.Text;
+
+
+            string server = "localhost";
+            string database = "flappyLeader";
+            string dbUsername = "root";
+            string dbPassword = "";
+            string connectionString = "SERVER=" + server + ";" + "DATABASE=" +
+
+                database + ";" + "UID=" + dbUsername + ";" + "PASSWORD=" + dbPassword + ";";
+
+            MySqlConnection mysqlcon = new MySqlConnection(connectionString);
+
+            
+            mysqlcon.Open();
+
+
+
+
+            using (mysqlcon)
+            {
+                using(MySqlCommand cmd1 = new MySqlCommand("insert into leaderboard(Name,Score) values('" + Name + "', " + totalScore + ") order by score;", mysqlcon))
+                {
+                    cmd1.ExecuteNonQuery();
+                }
+                using (MySqlCommand cmd3 = new MySqlCommand("delete from leaderboard Where ID not in (select * from (select ID from leaderboard order by score desc limit 10) as temp)", mysqlcon))
+                {
+                    cmd3.ExecuteNonQuery();
+
+
+                }
+                
+
+
+
+                mysqlcon.Close();
+
+
+            }
+            totalScore = 0;
         }
     }
 }
