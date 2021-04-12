@@ -139,5 +139,12 @@
   <ItemGroup>
     <None Include="Resources\pipedown.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\Flappy_Bird_4-5fce932d2d419.jpg" />
+    <None Include="Resources\Flappy_Bird_4-5fce932d2d419.jpg" />
+    <None Include="Resources\Main.bmp" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\mainMenu.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
