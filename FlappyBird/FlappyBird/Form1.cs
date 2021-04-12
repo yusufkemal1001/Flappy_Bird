@@ -35,7 +35,7 @@ namespace FlappyBird
 
         public Form1()
         {
-
+            /*gets last value in database */
             InitializeComponent();
 
             string server = "localhost";
@@ -73,6 +73,7 @@ namespace FlappyBird
 
         private void gameTimerEvent(object sender, EventArgs e)
         {
+            /*what happens when the timer is open*/
             ground.Left -= pipeSpeed;
             flappyBird.Top += gravity;
             pipeBottom.Left -= pipeSpeed;
@@ -82,35 +83,35 @@ namespace FlappyBird
             label1.Text = score.ToString();
             label1.Text = "Score : " + score;
 
-            if (ground.Left<-50)
+            if (ground.Left<-50)/*if ground is offscreen, adds the ground again from the fuar left side*/
             {
                 ground.Left = 0;
             }
 
-            if (pipeBottom.Left < -30)
+            if (pipeBottom.Left < -30) /*if pipe is offscreen, then add a pipe at the far right side of screen*/
             {
                 pipeBottom.Left= 677;
                 
                 
                 score++;
             }
-            if (pipeTop.Left < -30)
+            if (pipeTop.Left < -30)/*if pipe is offscreen, then add a pipe at the far right side of screen*/
             {
                 pipeTop.Left = 677;
-                pipeTop.Height = rndHeight.Next(200, 450);
+                pipeTop.Height = rndHeight.Next(200, 450);/*gives a random height to the pipes with a gap of 155 pixels*/
                 pipeBottom.Top = pipeTop.Bottom + 155;
                
 
             }
            
             
-            if (score == tableOf)
+            if (score == tableOf)/*makes speed faster after every 5 pionts*/
             {
                    pipeSpeed = pipeSpeed + 1;
                 tableOf = tableOf + 5;
                 
             }
-
+            /*collision detection*/
             if (flappyBird.Bounds.IntersectsWith(pipeBottom.Bounds) || flappyBird.Bounds.IntersectsWith(pipeTop.Bounds) || flappyBird.Bounds.IntersectsWith(ground.Bounds) || flappyBird.Top < 0 )
             {
                 endGame();
@@ -138,7 +139,7 @@ namespace FlappyBird
             
         }
 
-        
+        /*the function that is runned after a collision*/
         private void endGame()
         {
             label1.BringToFront();
@@ -155,13 +156,14 @@ namespace FlappyBird
 
         }
         
-        private void endLives()
+
+        private void endLives() /*function that gets runned after you have no lives left*/
         {
             if (lives == 0)
             {
                 
                 label5.Text = "Game Over";
-                if (totalScore >lastleaderboardscore)
+                if (totalScore >lastleaderboardscore) /*this code runs if the totalscore is higher than the lowest value in the database. This code shows button2 which makes a connection to the database*/
                 {
                     label5.Location = new Point(65, 50);
                     button2.Show();
@@ -174,7 +176,7 @@ namespace FlappyBird
 
 
                 }
-                else
+                else /*if you dont get a highscore, then the game just ends and you start again*/
                 {
                     button1.Width = 120;
                     button1.Text = "Play Again!";
@@ -218,7 +220,7 @@ namespace FlappyBird
         }
         private void gameKeyIsDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space)/*this snippet of codes runs if you press the spacebar*/
             {
                 e.SuppressKeyPress = true;
                 gravity = -18;
@@ -226,7 +228,7 @@ namespace FlappyBird
                 textBox2.Select(textBox2.Text.Length, 0);
                 
             }
-            if (e.KeyCode==Keys.Escape)
+            if (e.KeyCode==Keys.Escape) /*this code runs if you press the escape button*/
             {
                 dataGridView1.Hide();
                 panel1.Location = new Point(-3, 0);
@@ -247,7 +249,7 @@ namespace FlappyBird
 
         private void gameKeyIsUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space)/* this code runs when you dont press the spacebar, or when you release the spacebar*/
             {
                 e.SuppressKeyPress = true;
                 gravity = 10;
@@ -256,7 +258,7 @@ namespace FlappyBird
         }
         
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) /*button that starts the game again and arranges places of buttons, labels, textboxes etc. Resets the location of pipes and flappy*/
         {
             
 
@@ -297,7 +299,7 @@ namespace FlappyBird
             
             pipeBottom.Location = new Point(677, 361);
             pipeTop.Location = new Point(677, -122);
-            pipeTop.Height = rndHeight.Next(200, 450);
+            pipeTop.Height = rndHeight.Next(200, 450);/*makes the height of the first pipes random*/
             pipeBottom.Top = pipeTop.Bottom + 155;
             pipeTop.Visible = true;
             pipeBottom.Visible = true;
@@ -311,7 +313,7 @@ namespace FlappyBird
             
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e) /* makes connection to database to show leaderboard. the leaderboard is only shown if button4 is clicked*/
         {
             string server = "localhost";
             string database = "flappyLeader";
@@ -340,16 +342,17 @@ namespace FlappyBird
 
             DataGridViewColumn column2 = dataGridView1.Columns[1];
             column2.Width = 280;
+            
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
             
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+        private void button2_Click(object sender, EventArgs e)/* if the player gets a highscore, this button is showed. after the name is entered, the player clicks this button to add their highscore to the database*/
+        { 
             label5.Show();
             button1.Show();
             button2.Hide();
@@ -405,7 +408,7 @@ namespace FlappyBird
             totalScore = 0;
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)/* shows leaderboard*/
         {
             dataGridView1.Show();
             button1.Hide();
