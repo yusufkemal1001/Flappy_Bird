@@ -353,6 +353,7 @@ namespace FlappyBird
 
         private void button2_Click(object sender, EventArgs e)/* if the player gets a highscore, this button is showed. after the name is entered, the player clicks this button to add their highscore to the database*/
         { 
+            
             label5.Show();
             button1.Show();
             button2.Hide();
@@ -406,6 +407,8 @@ namespace FlappyBird
             label5.Location = new Point(20,50);
             button1.Width = 120;
             totalScore = 0;
+            label1.Show();
+            label2.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)/* shows leaderboard*/
